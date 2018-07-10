@@ -3,7 +3,7 @@ from cassandra.auth import PlainTextAuthProvider
 import os
 import logging
 
-DB_HOSTS =  ['localhost']
+DB_HOSTS =  "localhost"
 DB_PORT = 9042
 DB_USERNAME = 'cassandra'
 DB_PASSWORD = 'cassandra'
@@ -13,18 +13,17 @@ if os.environ.get('DB_HOSTS'):
     if os.environ.get('DB_PORT'):
         DB_HOSTS = os.environ.get('DB_HOSTS')
         DB_PORT = os.environ.get('DB_PORT')
-        # Debugging database connection in cloud
-        logging.warn('DB_HOSTS is ' +
-                     str(DB_HOSTS) + ':' + str(DB_PORT))
+        
 if os.environ.get('DB_USERNAME'):
     if os.environ.get('DB_PASSWORD'):
         DB_USERNAME = os.environ.get('DB_USERNAME')
         DB_PASSWORD = os.environ.get('DB_PASSWORD')
+
 if os.environ.get('DB_KEYSPACE'):
     DB_KEYSPACE = os.environ.get('DB_KEYSPACE')
     logging.warn('Connected keyspace: ' + str(DB_KEYSPACE))
 
-DB_HOSTS = [host for host in DB_HOSTS]
+DB_HOSTS = DB_HOSTS.split(",")
 print(DB_HOSTS)
 
 auth_provider = PlainTextAuthProvider(
