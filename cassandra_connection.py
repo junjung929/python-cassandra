@@ -3,7 +3,7 @@ from cassandra.auth import PlainTextAuthProvider
 import os
 import logging
 
-DB_HOSTS = ['localhost']
+DB_HOSTS =  ['localhost']
 DB_PORT = 9042
 DB_USERNAME = 'cassandra'
 DB_PASSWORD = 'cassandra'
@@ -23,6 +23,9 @@ if os.environ.get('DB_USERNAME'):
 if os.environ.get('DB_KEYSPACE'):
     DB_KEYSPACE = os.environ.get('DB_KEYSPACE')
     logging.warn('Connected keyspace: ' + str(DB_KEYSPACE))
+
+DB_HOSTS = [host for host in DB_HOSTS]
+print(DB_HOSTS)
 
 auth_provider = PlainTextAuthProvider(
     username=DB_USERNAME, password=DB_PASSWORD)
